@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>cadastramento de veículos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<h1>Formulário para cadastro de veículos</h1>
+<form th:action="${veiculo.id == null} ? @{/veiculo/save} : @{/veiculo/update}" th:object="${veiculo}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <label>Marca:
+    <input type="text" th:field="*{marca}"  placeholder="Marca"></label>
+    <label>Modelo:
+    <input type="text" th:field="*{modelo}"  placeholder="Modelo"></label>
+    <label>Preço:
+    <input type="text" th:field="*{preco}"  placeholder="Preço"></label>
+    <label>Ano de fabricação:
+    <input type="text" th:field="*{anoFabricacao}"  placeholder="Ano de fabricação Ex: 2024"></label>
+    <input type="submit" value="Enviar">
+</form>
+
+</body>
+</html>
