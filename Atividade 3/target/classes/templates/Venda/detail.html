@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Veículos</title>
+</head>
+<body>
+<h1>
+    Página de detalhes da venda <label th:text="${venda.id}"></label>
+</h1>
+<table class="table" border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Quantidade</th>
+        <th>Produto</th>
+        <th>Preço</th>
+        <th>Valor total</th>
+    </tr>
+    </thead>
+    <tr th:each="i : ${venda.itensVenda}">
+        <td th:text="${i.id}"> </td>
+        <td th:text="${i.quantidade}"> </td>
+        <td th:text="${i.produto.descricao}"> </td>
+        <td th:text="${i.produto.valor}"> </td>
+        <td th:text="${i.total()}"> </td>
+    </tr>
+</table>
+<h2 th:text="${venda.total}">Valor total </h2>
+<td> <a href="/venda/listar">Retornar para página de vendas</a> </td>
+</body>
+</html>

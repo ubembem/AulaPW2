@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Veículos</title>
+    </head>
+    <body>
+        <h1>
+            Página de listagem de Vendas
+        </h1>
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Data da venda</th>
+                    <th>Total</th>
+                    <th colspan="2">Detalhes</th>
+                </tr>
+            </thead>
+            <tr th:each="v : ${vendas}">
+                <td th:text="${v.id}"> </td>
+                <td th:text="${v.dataVenda}"> </td>
+                <td th:text="${v.total}"> </td>
+                <td> <a th:href="@{/venda/detalhes/{id}(id=${v.id})}">Detalhes</a> </td>
+            </tr>
+        </table>
+    </body>
+</html>
