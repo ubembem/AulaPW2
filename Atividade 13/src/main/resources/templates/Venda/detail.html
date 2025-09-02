@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main},false, true, false)}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+<body>
+<main class="container">
+    <p th:text="${venda != null ? 'Venda carregada com sucesso' : 'Venda não carregada'}"></p>
+        <h1 style="background-color: #f0f0f0;">
+            Página de detalhes da venda:
+            <label th:text="${venda.id}"></label>
+        </h1>
+        <table class="table" border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imagem</th>
+                <th>Descrição do produto</th>
+                <th>Quantidade</th>
+                <th class="text-end">Preço unitário</th>
+                <th class="text-end">Preço total</th>
+            </tr>
+            </thead>
+            <tr th:each="i : ${venda.itensVenda}">
+                <td th:text="${i.id}"> </td>
+                <td> <img th:src="@{'/' + ${i.produto.imagemUrl}}" alt="Imagem do produto" width="50"/></td>
+                <td th:text="${i.produto.descricao}"> </td>
+                <td th:text="${i.quantidade}"> </td>
+                <td class="text-end" th:text="${i.produto.valor}"> </td>
+                <td class="text-end" th:text="${i.total()}"> </td>
+            </tr>
+
+        </table>
+        <p>Cliente: <span th:text="${venda.pessoa.nome}"></span></p>
+        <p>Data: <span th:text="${venda.dataVendaDate != null ? #temporals.format(venda.dataVendaDate, 'dd/MM/yyyy') : 'Sem data'}"></span></p>
+        <p>Valor Total R$:<span th:text="${#numbers.formatDecimal(venda.total, 1, 2, 'COMMA')}">Valor total </span></p>
+    <h2 style="background-color: #f0f0f0;">Forma de pagamento</h2>
+    <p>Forma de Pagamento: <span th:text="${venda.formaPagamentoEnum}"></span></p>
+    <h3 style="background-color: #f0f0f0;">Endereço de Entrega:</h3>
+        <div class="flex-box">
+            <p>Logradouro: <span th:text="${venda.enderecoEntrega.logradouro}"></span></p>
+            <p>Número: <span th:text="${venda.enderecoEntrega.numero}"></span></p>
+            <p>Bairro: <span th:text="${venda.enderecoEntrega.bairro}"></span></p>
+            <p>Cidade: <span th:text="${venda.enderecoEntrega.cidade}"></span></p>
+            <p>Estado: <span th:text="${venda.enderecoEntrega.estado}"></span></p>
+            <p>CEP: <span th:text="${venda.enderecoEntrega.cep}"></span></p>
+        </div>
+
+    <td> <a href="/venda/compras">Retornar para minhas compras</a> </td>
+    </main>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main},false, false, true)}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+<body>
+    <main class="container">
+        <h1>Produtos</h1>
+        <div class="row d-flex flex-wrap">
+            <div class="col-md-2 mb-4" th:each="p : ${produtos}">
+                <div class="card mb-3">
+                    <img class="card-img-top" th:src="@{'/' + ${p.imagemUrl}}" alt="Imagem do produto" />
+                    <div class="card-body text-center">
+                        <h5 class="card-title" th:text="${p.descricao}"></h5>
+                        <p class="card-text">R$ <span th:text="${p.valor}"></span></p>
+                        <form th:action="@{/carrinho/adicionar}" method="post" class="d-flex justify-content-center align-items-center" th:object="${produto}">
+                            <input type="hidden" name="idProduto" th:value="${p.id}" />
+                            <button type="submit" class="btn btn-primary mx-2">Adicionar ao Carrinho</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

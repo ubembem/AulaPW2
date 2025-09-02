@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt" th:replace="~{fragments/layout :: layout(~{::head},~{::main},false, false, true)}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+<body>
+<main class="container">
+    <h1>Cadastro de Usuário</h1>
+    <form th:action="@{/usuario/save}" th:object="${usuario}" method="post">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" id="nome" th:field="*{nome}" class="form-control" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Usuário</label>
+            <input type="text" id="username" th:field="*{username}" class="form-control" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" id="password" th:field="*{password}" class="form-control" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+    </form>
+</main>
+</body>
+</html>

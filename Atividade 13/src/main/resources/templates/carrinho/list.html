@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main},false, false, true)}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+<body>
+<main class="container">
+    <h1>Carrinho de Compras</h1>
+    <div th:if="${mensagemErro}" class="alert alert-danger">
+        <span th:text="${mensagemErro}"></span>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Imagem</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Total</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item, posicao : ${carrinho}">
+            <td th:text="${item.produto.id}"></td>
+            <td>
+                <img th:src="@{'/' + ${item.produto.imagemUrl}}" alt="Imagem do produto" width="100" />
+            </td>
+            <td th:text="${item.produto.descricao}"></td>
+            <td>
+                <form th:action="@{/carrinho/atualizar}" method="post" class="d-inline">
+                    <input type="number" name="quantidade" th:value="${item.quantidade}" min="1" class="form-control" style="width: 80px; display: inline-block;" />
+                    <input type="hidden" name="idProduto" th:value="${item.produto.id}" />
+                    <button type="submit" class="btn btn-primary btn-sm">Atualizar</button>
+                </form></td>
+            <td>R$ <span th:text="${item.produto.valor}"></span></td>
+            <td>R$ <span th:text="${item.total}"></span></td>
+            <td>
+                <form th:action="@{/carrinho/remover}" method="post">
+                    <input type="hidden" name="idProduto" th:value="${item.produto.id}" />
+                    <button onclick="return window.confirm('Tem certeza que deseja excluir este registro?')" type="submit" class="btn btn-danger">Remover</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/carrinho/finalizar}" method="post">
+        <h5 class="text-warning">Cliente: <span th:text="${#authentication.name}"></span></h5>
+        <h3>Total da Compra: R$ <span th:text="${totalCompra}"></span></h3>
+        <h4>Endereço de Entrega</h4>
+        <button type="button" class="btn btn-link" onclick="toggleEndereco()">Adicionar Endereço</button>
+
+        <div id="formEndereco" style="display: none;">
+            <div class="form-group">
+                <label for="logradouro">Logradouro:</label>
+                <input type="text" id="logradouro" name="logradouro" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="numero">Número:</label>
+                <input type="text" id="numero" name="numero" class="form-control" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="bairro">Bairro:</label>
+                <input type="text" id="bairro" name="bairro" class="form-control" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" name="cidade" class="form-control" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado" class="form-control" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" name="cep" class="form-control"  required/>
+            </div>
+        </div>
+
+        <h5>Selecione a forma de pagamento</h5>
+        <select name="formaPagamento" class="form-control">
+            <option th:each="forma : ${formasPagamento}" th:value="${forma.name()}" th:text="${forma.descricao}"></option>
+        </select>
+        <button type="submit" class="btn btn-success">Finalizar Compra</button>
+        <script>
+            function toggleEndereco() {
+                var form = document.getElementById('formEndereco');
+                form.style.display = (form.style.display === 'none') ? 'block' : 'none';
+            }
+        </script>
+    </form>
+</main>
+</body>
+</html>

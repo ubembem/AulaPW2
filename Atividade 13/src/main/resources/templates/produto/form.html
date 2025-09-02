@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main},false, false, true)}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+
+<body>
+<main>
+    <div>
+
+        <form needs-validation class="container" th:action="${produto.id == null} ? @{/produto/save} : @{/produto/update}"
+              th:object="${produto}" method="post">
+            <h2>Cadastro de produto</h2>
+            <div class="form-row">
+                <div class="mb-2 col-lg-6">
+                    <input type="hidden" th:field="*{id}">
+                    <input class="form-control" type="text" th:field="*{descricao}" th:errorclass="is-invalid" placeholder="Descrição">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="text" th:field="*{valor}" th:errorclass="is-invalid" placeholder="Valor">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="tel" th:field="*{imagemUrl}" th:errorclass="is-invalid" placeholder="url da imagem">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('imagemUrl')}" th:errors="*{imagemUrl}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input type="submit" value="Enviar">
+                </div>
+            </div>
+            <a th:href="@{/produto/listar}">Retornar</a>
+        </form>
+    </div>
+</main>
+</body>
+</html>

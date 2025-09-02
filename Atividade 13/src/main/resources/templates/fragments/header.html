@@ -1,0 +1,98 @@
+
+<header class="container" th:fragment="header(isPessoa, isVenda, isProduto)">
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/produto/listar">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item" sec:authorize="hasAnyRole('ADMIN')">
+                        <a class="nav-link active" aria-current="page" href="/venda/listar">Vendas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/produto/listar">Produtos</a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN','USER')">
+                        <a class="nav-link active" aria-current="page" href="/venda/compras">Minhas compras</a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN')">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Cliente
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/pessoafisica/listar}">Pessoa Fisica</a></li>
+                            <li><a class="dropdown-item" th:href="@{/pessoajuridica/listar}">Pessoa Jurídica</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{/pessoa/listar}">Todos os clientes</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Consultas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li sec:authorize="hasAnyRole('ADMIN')"><a class="dropdown-item" th:href="@{/pessoa/listar}">Consultar cliente</a></li>
+                            <li><a class="dropdown-item" th:href="@{/produto/listar}">Consultar produto</a></li>
+                            <li sec:authorize="hasAnyRole('ADMIN')"><a class="dropdown-item" th:href="@{/venda/listar}">Consultar venda</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li sec:authorize="hasAnyRole('ADMIN')"><a class="dropdown-item" th:href="@{/venda/consultaPorClienteEData}">Consultar venda por cliente</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN')">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Cadastros
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/pessoafisica/form}">Cadastro de cliente pessoa física</a></li>
+                            <li><a class="dropdown-item" th:href="@{/pessoajuridica/form}">Cadastro de cliente pessoa jurídica</a></li>
+                            <li><a class="dropdown-item" th:href="@{/produto/form}">Cadastro de produtos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form th:if="${isPessoa == true}" class="d-flex" role="busca" th:action="@{/pessoa/consulta{nome}}" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Buscar cliente por nome" aria-label="buscar" name="nome" id="nome" th:value="${nome}">
+                    <button class="btn btn-dark" type="submit">Buscar</button>
+                </form>
+                <form th:if="${isVenda == true}" class="d-flex" role="busca"
+                      th:action="@{/venda/consulta}" method="get">
+                    <input class="form-control me-2" type="date" placeholder="Data inicial"
+                           aria-label="buscar" name="dataInicial" id="dataInicial" th:value="${dataInicial}">
+                    <button class="btn btn-dark" type="submit">Buscar</button>
+                </form>
+                <form th:if="${isProduto == true}" class="d-flex" role="busca" th:action="@{/produto/consulta{descricao}}" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Buscar produto por nome" aria-label="buscar" name="descricao" id="descricao" th:value="${descricao}">
+                    <button class="btn btn-dark" type="submit">Buscar</button>
+                </form>
+                <span class="nav-item">
+                    <a class="nav-link active" position-absolute aria-current="page" href="/carrinho/listar">
+                          <span id="cart-count" class="position-relative top start-100 translate-middle badge rounded-pill bg-danger ms-2" th:text="${session.carrinho != null ? session.carrinho.size() : 0}">
+                            <span class="visually-hidden">Quantidade de itens no carrinho</span>
+                          </span>
+                        <img src="/imagens/carrinho.png" alt="Carrinho" style="width: 24px; height: 24px; margin-top: 2px;">Carrinho
+                    </a>
+                </span>
+                <div sec:authorize="!isAuthenticated()" class="d-flex align-items-center gap-3 ms-4">
+                    <a href="/login" class="btn btn-dark">Login</a>
+                </div>
+                <div sec:authorize="isAuthenticated()" class="d-flex align-items-center gap-3 ms-4">
+                    <span>
+                        <h3>Olá, <strong sec:authentication="name"></strong></h3>
+                    </span>
+                    <form th:action="@{/login/logout}" method="post">
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div sec:authorize="isAuthenticated()">
+        <span>
+        <h3>Olá <strong sec:authentication="name"></strong></h3>
+        </span>
+    </div>
+</header>
+
+

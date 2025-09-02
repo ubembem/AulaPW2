@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main},false, true, false)}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+<body>
+<main class="container">
+    <h1>
+        Minhas compras
+    </h1>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Data da compra</th>
+            <th>Nome do cliente</th>
+            <th class="text-end">Total</th>
+            <th colspan="2">Detalhes</th>
+        </tr>
+        </thead>
+        <tr th:each="v : ${vendas}">
+            <td th:text="${v.id}"> </td>
+            <td th:text="${v.dataVendaDate != null ? #temporals.format(v.dataVendaDate, 'dd/MM/yyyy') : 'Sem data'}"></td>
+            <div th:if="${v.pessoa.getClass().getSimpleName() == 'PessoaFisica'}">
+                <td th:text="${v.pessoa.nome}"> </td>
+            </div>
+            <div th:if="${v.pessoa.getClass().getSimpleName() == 'PessoaJuridica'}">
+                <td th:text="${v.pessoa.razaoSocial}"> </td>
+            </div>
+            <td class="text-end" th:text="${#numbers.formatDecimal(v.total, 1, 2, 'COMMA')}"> </td>
+            <td> <a th:href="@{/venda/detalhes/{id}(id=${v.id})}">Detalhes</a> </td>
+        </tr>
+    </table>
+</main>
+</body>
+</html>

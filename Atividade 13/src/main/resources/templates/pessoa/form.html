@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main},true, false, false)}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+
+<body>
+<main>
+    <div th:if="${pessoaFisica}">
+        <form needs-validation class="container" th:action="${pessoaFisica.id == null} ? @{/pessoafisica/save} : @{/pessoafisica/update}"
+              th:object="${pessoaFisica}" method="post">
+            <h2>Página de atualização de cadastro do cliente</h2>
+            <div class="form-row">
+                <div class="mb-2 col-lg-6">
+                    <input type="hidden" th:field="*{id}">
+                    <input class="form-control" type="text" th:field="*{nome}" placeholder="Nome">
+                    <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:text="${#fields.errors('nome')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="text" th:field="*{cpf}" placeholder="CPF">
+                    <div class="text-danger" th:if="${#fields.hasErrors('cpf')}" th:text="${#fields.errors('cpf')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="tel" th:field="*{telefone}" placeholder="Telefone">
+                    <div class="text-danger" th:if="${#fields.hasErrors('telefone')}" th:text="${#fields.errors('telefone')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="email" th:field="*{email}" placeholder="E-mail">
+                    <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="text" th:field="*{usuario.login}" placeholder="Login">
+                    <div class="text-danger" th:if="${#fields.hasErrors('usuario.login')}" th:text="${#fields.errors('usuario.login')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="password" th:field="*{usuario.password}" placeholder="Senha">
+                    <div class="text-danger" th:if="${#fields.hasErrors('usuario.password')}" th:text="${#fields.errors('usuario.password')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input type="submit" value="Enviar">
+                </div>
+            </div>
+            <a th:href="@{/pessoa/listar}">Retornar</a>
+        </form>
+    </div>
+
+    <div th:if="${pessoaJuridica}">
+        <form needs-validation class="container" th:action="${pessoaJuridica.id == null} ? @{/pessoajuridica/save} : @{/pessoajuridica/update}"
+              th:object="${pessoaJuridica}" method="post">
+            <h2>Página de atualização de cadastro do cliente</h2>
+            <div class="form-row">
+                <div class="mb-2 col-lg-6">
+                    <input type="hidden" th:field="*{id}">
+                    <input class="form-control" type="text" th:field="*{razaoSocial}" placeholder="Razão Social">
+                    <div class="text-danger" th:if="${#fields.hasErrors('razaoSocial')}" th:text="${#fields.errors('razaoSocial')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="text" th:field="*{cnpj}" placeholder="CNPJ">
+                    <div class="text-danger" th:if="${#fields.hasErrors('cnpj')}" th:text="${#fields.errors('cnpj')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="tel" th:field="*{telefone}" placeholder="Telefone">
+                    <div class="text-danger" th:if="${#fields.hasErrors('telefone')}" th:text="${#fields.errors('telefone')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="email" th:field="*{email}" placeholder="E-mail">
+                    <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="text" th:field="*{usuario.login}" placeholder="Login">
+                    <div class="text-danger" th:if="${#fields.hasErrors('usuario.login')}" th:text="${#fields.errors('usuario.login')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input class="form-control" type="password" th:field="*{usuario.password}" placeholder="Senha">
+                    <div class="text-danger" th:if="${#fields.hasErrors('usuario.password')}" th:text="${#fields.errors('usuario.password')[0]}"></div>
+                </div>
+                <div class="mb-2 col-lg-6">
+                    <input type="submit" value="Enviar">
+                </div>
+            </div>
+            <a th:href="@{/pessoa/listar}">Retornar</a>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main},true, false, false)}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+<body>
+<main class="container">
+        <h1>
+            Página de listagem de Pessoas Físicas
+        </h1>
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th colspan="2">Ações</th>
+                </tr>
+            </thead>
+            <tr th:each="p : ${pessoafisica}">
+                <td th:text="${p.id}"> </td>
+                <td th:text="${p.nome}"> </td>
+                <td th:text="${p.cpf}"> </td>
+                <td th:text="${p.telefone}"> </td>
+                <td th:text="${p.email}"> </td>
+                <td> <a th:href="@{/pessoafisica/edit/{id}(id=${p.id})}">Editar</a> </td>
+                <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')" th:href="@{/pessoa/remove/{id}(id=${p.id})}">Excluir</a> </td>
+            </tr>
+        </table>
+        <a th:href="@{/pessoafisica/form}">Cadastrar novo cliente</a>
+</main>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main},false, false, false)}">
+
+<head th:replace="~{fragments/head :: head(~{})}"></head>
+<body>
+<main class="container">
+    <h1>
+        Página de consulta de vendas por cliente e data.
+    </h1>
+    <form th:action="@{/venda/consultaClienteEData}" method="get">
+        <label for="clienteId">Cliente:</label>
+        <select id="clienteId" name="clienteId" class="form-control">
+            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nome}"></option>
+        </select>
+
+        <label for="dataInicial">Data:</label>
+        <input class="form-control" type="date" id="dataInicial" name="dataInicial" th:value="${dataInicial}">
+
+<!--        <label for="dataFinal">Data Final:</label>-->
+<!--        <input class="form-control" type="date" id="dataFinal" name="dataFinal" th:value="${dataFinal}">-->
+
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </form>
+
+</main>
+</body>
+</html>
