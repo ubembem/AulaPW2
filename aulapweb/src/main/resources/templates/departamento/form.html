@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Form Departamento</title>
+</head>
+
+<body>
+
+<main>
+
+    <h4 class="mt-3">Cadastro de Departamento</h4>
+
+    <form class="mt-3" th:action="@{/departamento/funcionario/add}" th:object="${funcionario}"
+          method="post">
+        <div class="row">
+            <div class="col-4">
+                <input type="hidden" th:field="*{id}">
+                <input type="text" class="form-control" th:field="*{nome}" placeholder="Nome do funcionário">
+            </div>
+            <div class="col-4">
+                <input type="text" class="form-control" th:field="*{cpf}" placeholder="Cpf do funcionário">
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="mt-3 table table-secondary table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>nome</th>
+        </tr>
+        </thead>
+        <tr th:each="f : ${session.departamento.funcionarios}">
+            <td th:text="${f.nome}"> </td>
+            <td th:text="${f.cpf}"> </td>
+        </tr>
+    </table>
+
+    <form class="mt-3" th:action="${departamento.id == null} ? @{/departamento/save}
+        : @{/departamento/update}" th:object="${departamento}" method="post">
+        <div class="row">
+            <div class="col-4">
+                <input type="hidden" th:field="*{id}">
+                <input type="text" class="form-control" th:field="*{nome}" placeholder="Nome do departamento">
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </form>
+
+</main>
+</body>
+</html>

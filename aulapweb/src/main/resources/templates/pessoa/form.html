@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head(~{},~{::title})}">
+    <title>Form Pessoa</title>
+</head>
+
+<body>
+
+<main>
+    <!--    <div th:replace="~{fragments/mensagem :: alerta('Alerta na operação!')}"></div>-->
+
+    <h1>FORM</h1>
+    <form th:action="${pessoaFisica.id == null} ? @{/pessoa/save} : @{/pessoa/update}" th:object="${pessoaFisica}"
+          method="post">
+        <div class="row">
+            <div class="col-4">
+                <input type="hidden" th:field="*{id}">
+                <input type="text" class="form-control" th:field="*{nome}" placeholder="Nome">
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </form>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="fragments/layout :: layout(~{::head}, ~{::main})">
+
+<head th:replace="fragments/head :: head(~{::link},~{::title})">
+    <title>Título</title>
+    <link src="estilo.css" rel="stylesheet">
+</head>
+
+<body>
+<main>
+<h4 class="p-2">Lista de Departamentos</h4>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>nome</th>
+        <th>Funcionarios</th>
+    </tr>
+    </thead>
+    <tr th:each="d : ${departamentos}">
+        <td th:text="${d.id}"> </td>
+        <td th:text="${d.nome}"> </td>
+        <td th:text="${d.funcionarios.toString()}"> </td>
+    </tr>
+</table>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="fragments/layout :: layout(~{::head}, ~{::main})">
+
+<head th:replace="fragments/head :: head(~{::link},~{::title})">
+    <title>Título</title>
+    <link src="estilo.css" rel="stylesheet">
+</head>
+
+<body>
+<main>
+<h4 class="p-2">Lista de Pessoas</h4>
+<table class="table" border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>nome</th>
+        <th colspan="2">Ações</th>
+    </tr>
+    </thead>
+    <tr th:each="p : ${pessoas}">
+        <td th:text="${p.id}"> </td>
+        <td th:text="${p.nome}"> </td>
+        <td th:text="${p.toString()}"> </td>
+        <td> <a th:href="@{/pessoa/edit/{id}(id=${p.id})}">Editar</a> </td>
+        <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/pessoas/remove/{id}(id=${p.id})}">Excluir</a> </td>
+    </tr>
+</table>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<h1>FORM</h1>
+<form th:action="|${pessoa.id == null} ? /${pessoa.nomeClasse()}/save : /${pessoa.nomeClasse()}/update|"
+      th:object="${pessoa}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <input type="text" th:if="${pessoa.tipoObjeto('pessoaFisica')}" th:field="*{nome}"  placeholder="Nome">
+    <input type="text" th:if="${pessoa.tipoObjeto('pessoaJuridica')}" th:field="*{razaoSocial}"  placeholder="Razão Social">
+    <input type="text" th:if="${pessoa.tipoObjeto('pessoaFisica')}" th:field="*{cpf}"  placeholder="cpf">
+    <input type="text" th:if="${pessoa.tipoObjeto('pessoaJuridica')}" th:field="*{cnpj}"  placeholder="cpnj">
+    <input type="submit" value="Enviar">
+</form>
+
+</body>
+</html>
