@@ -54,8 +54,8 @@ git checkout atividade-5  # substitua pela tag desejada
 
 * Use a **Atividade 13** para testes e execução, pois é a versão final.
 * Tags são **fixas**, se quiser alterar uma versão, crie uma branch:
-* A consulta de pedidos realizados que foram precarregados no banco de dados vai dar erro ao consultar, pois a página precisa dos dados que não foram incluídos nessa inserção, logo deve se criar movas vendas para poder ser exibido os detalhes das mesma.
-* 
+* A consulta de detalhes de venda que foram precarregados no banco de dados vai dar erro ao consultar, pois a página precisa dos dados que não foram incluídos nessa inserção, logo deve se criar novas vendas para poder ser exibido os detalhes das mesma.
+
 ```bash
 git checkout -b minha-branch
 ```
